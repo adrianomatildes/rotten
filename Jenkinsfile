@@ -4,14 +4,18 @@ pipeline {
   stages {
     stage('Checkout Source') {
       steps {
-        git url: 'https://github.com/adrianomatildes/rotten.git', branch: 'master'
+        script {
+          // Checkout do repositório Git
+          git url: 'https://github.com/adrianomatildes/rotten.git', branch: 'master'
+        }
       }
     }
 
     stage('Build image') {
       steps {
         script {
-          dockerapp = docker.build("amatildes/rotten-potatoes:${env.BUILD_ID}", '-f ./src/Dockerfile .')
+          // Construção da imagem Docker
+          def dockerapp = docker.build("amatildes/rotten-potatoes:${env.BUILD_ID}", "-f src/Dockerfile .")
         }
       }
     }
@@ -19,9 +23,10 @@ pipeline {
     stage('Push Image') {
       steps {
         script {
-          docker.withRegistry('https:registry.hub.docker.com', 'dockerhub') {
-          dockerapp.push('latest')
-          dockerapp.push("${env.BUILD_ID}")
+          // Push da imagem Docker para o registro DockerHub
+          docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
+            dockerapp.push('latest')
+            dockerapp.push("${env.BUILD_ID}")
           }
         }
       }
