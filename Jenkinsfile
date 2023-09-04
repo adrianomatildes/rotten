@@ -11,7 +11,7 @@ pipeline {
     stage('Build image') {
       steps {
         script {
-          dockerapp = docker.build("amatildes/rotten:${env.BUILD_ID}", '-f ./src/Dockerfile .')
+          dockerapp = docker.build("amatildes/rotten-potatoes:${env.BUILD_ID}", '-f ./src/Dockerfile .')
         }
       }
     }
