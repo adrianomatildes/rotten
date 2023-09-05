@@ -38,7 +38,7 @@ pipeline {
       agent {
         kubernetes {
           cloud 'kubernetes'
-          label 'sua-etiqueta-do-agente' // Substitua pela etiqueta correta do seu agente Kubernetes
+          label 'kubepods' // Substitua pela etiqueta correta do seu agente Kubernetes
           containerTemplate {
             name 'jnlp'
             resourceRequestCpu '0.5' // CPU solicitada (0.5 núcleos)
