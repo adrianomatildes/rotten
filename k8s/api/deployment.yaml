@@ -16,10 +16,6 @@ spec:
         image: amatildes/rotten:{{tag}}
         ports:
           - containerPort: 5000
-        resources:
-          limits:
-            cpu: "0.5"
-            memory: "250Mi"
         env:
           - name: MONGODB_DB
             value: admin
