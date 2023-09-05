@@ -15,7 +15,9 @@ pipeline {
       steps {
         script {
           // Construção da imagem Docker
-          def dockerapp = docker.build("amatildes/rotten-potatoes:${env.BUILD_ID}", "-f src/Dockerfile .")
+          def imageName = "amatildes/rotten:${env.BUILD_ID}"
+          def dockerapp = docker.build(imageName, "-f src/Dockerfile .")
+          env.IMAGE_NAME = imageName // Defina uma variável de ambiente com o nome da imagem
         }
       }
     }
@@ -25,8 +27,8 @@ pipeline {
         script {
           // Push da imagem Docker para o registro DockerHub
           docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
-            dockerapp.push('latest')
-            dockerapp.push("${env.BUILD_ID}")
+            docker.image(env.IMAGE_NAME).push('latest') // Use a variável de ambiente para referenciar a imagem
+            docker.image(env.IMAGE_NAME).push("${env.BUILD_ID}") // Use a variável de ambiente para referenciar a imagem
           }
         }
       }
