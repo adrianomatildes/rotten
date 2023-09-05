@@ -39,13 +39,7 @@ pipeline {
         kubernetes {
           cloud 'kubernetes'
           label 'kubepods' // Substitua pela etiqueta correta do seu agente Kubernetes
-          containerTemplate {
-            name 'jnlp'
-            resourceRequestCpu '0.5' // CPU solicitada (0.5 núcleos)
-            resourceRequestMemory '1Gi' // Memória solicitada (1 gigabyte)
-            resourceLimitCpu '1' // Limite de CPU (1 núcleo)
-            resourceLimitMemory '2Gi' // Limite de memória (2 gigabytes)
-          }
+          defaultContainer 'jnlp'
         }
       }
       environment {
