@@ -15,7 +15,7 @@ pipeline {
       steps {
         script {
           // Construção da imagem Docker
-          def dockerapp = docker.build("amatildes/rotten-potatoes:${env.BUILD_ID}", "-f src/Dockerfile .")
+          def dockerapp = docker.build("amatildes/rotten-potatoes:${env.BUILD_ID}", "--build-arg BUILD_DATE=`date -u +'%Y-%m-%dT%H:%M:%SZ'` --build-arg VCS_REF=`git rev-parse --short HEAD` -f src/Dockerfile . --no-cache")
         }
       }
     }
