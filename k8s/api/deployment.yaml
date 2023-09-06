@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: movies
-        image: amatildes/rotten:{{tag}}
+        image: amatildes/rotten:latest
         ports:
           - containerPort: 5000
         env:

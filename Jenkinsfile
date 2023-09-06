@@ -43,7 +43,7 @@ pipeline {
       }
       steps {
         withKubeConfig([credentialId: 'kubeconfig']) {
-          sh 'sed -i "s/{{tag}}/$tag_version/g" kubectl apply -f ./k8s/. -R'
+          sh 'kubectl apply -f ./k8s/. -R'
         }
       }
     }
