@@ -36,18 +36,14 @@ pipeline {
 
     stage('Deploy Kubernetes') {
       agent {
-        kubernetes {
-          cloud 'kubernetes'
-          label 'kubepods' // Substitua pela etiqueta correta do seu agente Kubernetes
-          defaultContainer 'jnlp'
-        }
+        kubernetes 
       }
       environment {
         tag_version = "${env.BUILD_ID}"
       }
       steps {
         withKubeConfig([credentialId: 'kubeconfig']) {
-          sh 'kubectl apply -f ./k8s/. -R'
+          sh 'sed -i "s/{{tag}}/$tag_version/g" 'kubectl apply -f ./k8s/. -R'
         }
       }
     }
