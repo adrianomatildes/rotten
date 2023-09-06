@@ -44,7 +44,7 @@ pipeline {
         tag_version = "${env.BUILD_ID}"
       }
       steps {
-        withKubeConfig([credentialId: 'kubeconfig']) {
+        withKubeConfig([credentialsId: 'kubeconfig']) {
           sh 'kubectl apply -f ./k8s/. -R'
         }
       }
